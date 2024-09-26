@@ -1,0 +1,43 @@
+{
+  "name": "esplora-api-client",
+  "version": "1.0.0",
+  "description": "Tiny client library for Esplora-based Bitcoin APIs",
+  "keywords": [
+    "api",
+    "bitcoin",
+    "blockstream",
+    "client",
+    "esplora",
+    "mempool",
+    "mempool.space"
+  ],
+  "homepage": "https://github.com/hemilabs/esplora-api-client",
+  "bugs": {
+    "url": "https://github.com/hemilabs/esplora-api-client/issues"
+  },
+  "license": "MIT",
+  "author": "Gabriel Montes <gabriel@bloq.com> (https://github.com/gabmontes)",
+  "files": [
+    "src/**/*.js"
+  ],
+  "main": "src/index.js",
+  "repository": "hemilabs/esplora-api-client",
+  "scripts": {
+    "format:check": "prettier --check .",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "fetch-plus-plus": "^1.0.0"
+  },
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
+  },
+  "type": "module",
+  "lint-staged": {
+    "*.{js,json,md,ts}": "prettier --write"
+  },
+  "prettier": {}
+}
