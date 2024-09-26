@@ -1,27 +1,39 @@
+/// <reference path="../types/index.js" />
+
 import fetch from "fetch-plus-plus";
 
-const hostnames = ["mempool.space", "blockstream.info"];
+/**
+ * Creates a new Esplora API client.
+ *
+ * @param {object} options Client options.
+ * @param {string[]} [options.hostnames] List of API hostnames.
+ * @param {string} [options.network] Network name.
+ * @returns {EsploraClient}
+ */
+export const esploraApiClient = function (options = {}) {
+  const {
+    hostnames = ["mempool.space", "blockstream.info"],
+    network = "mainnet",
+  } = options;
 
-export const esploraApiClient = function ({ network }) {
-  const basePath = !network || network === "mainnet" ? "api" : `${network}/api`;
+  const basePath = network === "mainnet" ? "api" : `${network}/api`;
 
   const concatenateErrorMessage = (previousError, hostname) => (fetchError) =>
     Promise.reject(
       new Error(`${previousError.message}, ${hostname}: ${fetchError.message}`),
     );
 
-  const chainFetchCallsOnFailure =
-    (path, options) => (promiseChain, hostname) =>
-      promiseChain.catch((err) =>
-        fetch(`https://${hostname}/${basePath}/${path}`, options).catch(
-          concatenateErrorMessage(err, hostname),
-        ),
-      );
+  const chainFetchCallsOnFailure = (path, opts) => (promiseChain, hostname) =>
+    promiseChain.catch((err) =>
+      fetch(`https://${hostname}/${basePath}/${path}`, opts).catch(
+        concatenateErrorMessage(err, hostname),
+      ),
+    );
 
-  const fetchApi = (path, options) =>
+  const fetchApi = (path, opts) =>
     hostnames.reduce(
-      chainFetchCallsOnFailure(path, options),
-      Promise.reject(new Error("Out of retry options")),
+      chainFetchCallsOnFailure(path, opts),
+      Promise.reject(new Error("All API calls failed")),
     );
 
   return {

@@ -23,21 +23,69 @@
   "main": "src/index.js",
   "repository": "hemilabs/esplora-api-client",
   "scripts": {
+    "coverage": "c8 npm test",
     "format:check": "prettier --check .",
+    "knip": "knip",
+    "lint": "eslint --cache .",
+    "prepare": "husky",
     "prepublishOnly": "npm run build",
-    "prepare": "husky"
+    "test": "mocha"
   },
   "dependencies": {
     "fetch-plus-plus": "^1.0.0"
   },
   "devDependencies": {
+    "@types/node": "^22.7.3",
+    "c8": "^10.1.2",
+    "chai": "^5.1.1",
+    "chai-as-promised": "^8.0.0",
+    "eslint": "^8.57.1",
+    "eslint-config-bloq": "^4.1.0",
     "husky": "^9.1.6",
+    "knip": "^5.30.5",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "mocha": "^10.7.3",
+    "nock": "^14.0.0-beta.14",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.2"
   },
   "type": "module",
+  "c8": {
+    "all": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "bloq",
+      "prettier"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "*.test.js"
+        ],
+        "extends": [
+          "bloq/mocha",
+          "prettier"
+        ],
+        "rules": {
+          "node/no-unpublished-require": "off"
+        }
+      }
+    ],
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "root": true
+  },
+  "knip": {
+    "ignoreDependencies": [
+      "eslint-config-prettier",
+      "lint-staged"
+    ]
+  },
   "lint-staged": {
-    "*.{js,json,md,ts}": "prettier --write"
+    "*.{js,md}": "eslint --cache --fix",
+    "*.{js,json,md}": "prettier --write"
   },
   "prettier": {}
 }

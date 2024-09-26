@@ -18,14 +18,15 @@ npm install esplora-api-client
 import { esploraApiClient } from "esplora-api-client";
 
 const { bitcoin } = esploraApiClient({ network: "testnet" });
-const address = "tb1qlw09ycnp3qgqw9alqgx93ed7cg5kmnyud326ky";
+const address = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx";
 const { chain_stats } = await bitcoin.addresses.getAddress({ address });
 const balance = chain_stats.funded_txo_sum - chain_stats.spent_txo_sum;
 ```
 
 ## Options
 
-- `network`: string as `mainnet`, `testnet`.
+- `hostnames`: List of API hostnames. Defaults to `["mempool.space", "blockstream.info"]`.
+- `network`: Network name. Defaults to `mainnet`.
 
 ## Bitcoin methods
 
