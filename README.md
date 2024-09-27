@@ -15,9 +15,9 @@ npm install esplora-client
 ## Usage
 
 ```js
-import { esploraApiClient } from "esplora-client";
+import { esploraClient } from "esplora-client";
 
-const { bitcoin } = esploraApiClient({ network: "testnet" });
+const { bitcoin } = esploraClient({ network: "testnet" });
 const address = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx";
 const { chain_stats } = await bitcoin.addresses.getAddress({ address });
 const balance = chain_stats.funded_txo_sum - chain_stats.spent_txo_sum;
