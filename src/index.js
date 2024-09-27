@@ -10,7 +10,7 @@ import fetch from "fetch-plus-plus";
  * @param {string} [options.network] Network name.
  * @returns {EsploraClient}
  */
-export const esploraApiClient = function (options = {}) {
+export const esploraClient = function (options = {}) {
   const {
     hostnames = ["mempool.space", "blockstream.info"],
     network = "mainnet",

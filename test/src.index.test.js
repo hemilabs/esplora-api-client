@@ -2,7 +2,7 @@ import * as chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import nock from "nock";
 
-import { esploraApiClient } from "../src/index.js";
+import { esploraClient } from "../src/index.js";
 
 chai.use(chaiAsPromised).should();
 
@@ -18,7 +18,7 @@ describe("API fallback", function () {
     nock(`https://${hostnames[0]}`)
       .get(`/api/tx/${txid}/hex`)
       .reply(200, response);
-    const client = esploraApiClient({ hostnames });
+    const client = esploraClient({ hostnames });
     const data = await client.bitcoin.transactions.getTxHex({ txid });
     data.should.deep.equal(response);
   });
@@ -32,7 +32,7 @@ describe("API fallback", function () {
     nock(`https://${hostnames[1]}`)
       .get(`/api/blocks/tip/height`)
       .reply(200, response.toString());
-    const client = esploraApiClient({ hostnames });
+    const client = esploraClient({ hostnames });
     const data = await client.bitcoin.blocks.getBlocksTipHeight();
     data.should.equal(response);
   });
@@ -45,7 +45,7 @@ describe("API fallback", function () {
     nock(`https://${hostnames[1]}`)
       .get(`/testnet/api/fee-estimates`)
       .reply(404, "Not Found");
-    const client = esploraApiClient({ hostnames, network: "testnet" });
+    const client = esploraClient({ hostnames, network: "testnet" });
     await client.bitcoin.fees
       .getFeeEstimates()
       .should.be.rejectedWith(/Service Unavailable.*Not Found/);

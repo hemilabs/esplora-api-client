@@ -1,4 +1,4 @@
-# esplora-api-client
+# esplora-client
 
 Tiny client library for Esplora-based Bitcoin APIs, like the ones provided by mempool.space and blockstream.info.
 
@@ -9,13 +9,13 @@ It also has the ability to retry failed calls across APIs: if a call to mempool.
 ## Installation
 
 ```sh
-npm install esplora-api-client
+npm install esplora-client
 ```
 
 ## Usage
 
 ```js
-import { esploraApiClient } from "esplora-api-client";
+import { esploraApiClient } from "esplora-client";
 
 const { bitcoin } = esploraApiClient({ network: "testnet" });
 const address = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx";
