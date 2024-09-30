@@ -1,6 +1,6 @@
 {
   "name": "esplora-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Tiny client library for Esplora-based Bitcoin APIs",
   "keywords": [
     "api",
