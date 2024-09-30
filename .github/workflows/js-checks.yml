@@ -2,20 +2,18 @@ on:
   pull_request:
   push:
 
-# Limit to one workflow per branch and one per pull request at the same time
-# and cancel if a new one appears.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
-  all-checks:
+  run-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: .nvmrc
       - run: npm ci
       - run: npm run format:check
       - run: npm run lint
