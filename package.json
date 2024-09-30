@@ -18,7 +18,8 @@
   "license": "MIT",
   "author": "Gabriel Montes <gabriel@bloq.com> (https://github.com/gabmontes)",
   "files": [
-    "src/**/*.js"
+    "src",
+    "types"
   ],
   "main": "src/index.js",
   "repository": "hemilabs/esplora-client",
