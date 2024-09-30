@@ -40,7 +40,11 @@ export const esploraClient = function (options = {}) {
     bitcoin: {
       addresses: {
         getAddress: ({ address }) => fetchApi(`address/${address}`),
-        getAddressTxs: ({ address }) => fetchApi(`address/${address}/txs`),
+        getAddressTxs: ({ address, after_txid }) =>
+          fetchApi(
+            `address/${address}/txs`,
+            after_txid && { queryString: { after_txid } },
+          ),
         getAddressTxsUtxo: ({ address }) => fetchApi(`address/${address}/utxo`),
       },
       blocks: {

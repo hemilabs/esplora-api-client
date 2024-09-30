@@ -122,6 +122,16 @@
     "parserOptions": {
       "sourceType": "module"
     },
+    "rules": {
+      "camelcase": [
+        "warn",
+        {
+          "allow": [
+            "after_txid"
+          ]
+        }
+      ]
+    },
     "root": true
   },
   "knip": {
