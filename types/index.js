@@ -66,7 +66,7 @@
 /**
  * @typedef {object} AddressesMethods
  * @property {(params:{address:string})=>Promise<Address>} getAddress
- * @property {(params:{address:string})=>Promise<Tx[]>} getAddressTxs
+ * @property {(params:{address:string,after_txid?:string})=>Promise<Tx[]>} getAddressTxs
  * @property {(params:{address:string})=>Promise<AddressTxsUtxo[]>} getAddressTxsUtxo
  */
 
