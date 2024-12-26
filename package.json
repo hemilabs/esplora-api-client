@@ -156,12 +156,6 @@
       ]
     }
   },
-  "knip": {
-    "ignoreDependencies": [
-      "eslint-config-prettier",
-      "lint-staged"
-    ]
-  },
   "module": "./_esm/index.js",
   "types": "./_types/index.d.ts",
   "typings": "./_types/index.d.ts"
