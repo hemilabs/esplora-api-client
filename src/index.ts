@@ -40,6 +40,7 @@ export const esploraClient = function (options: Options = {}) {
 
   const chainFetchCallsOnFailure =
     (path: string, opts?: FetchOptions) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (promiseChain: Promise<any>, hostname: Hostname) =>
       promiseChain.catch((err) =>
         fetch(`https://${hostname}/${basePath}/${path}`, opts).catch(

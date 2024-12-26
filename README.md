@@ -48,10 +48,10 @@ const balance = chain_stats.funded_txo_sum - chain_stats.spent_txo_sum;
 
 NPM packages:
 
-- https://github.com/mempool/mempool.js
-- https://github.com/MiguelMedeiros/esplora-js
+- [mempool.js](https://github.com/mempool/mempool.js)
+- [esplora-js](https://github.com/MiguelMedeiros/esplora-js)
 
 API docs:
 
-- https://mempool.space/docs/api/rest
-- https://github.com/Blockstream/esplora/blob/master/API.md
+- [Mempool docs](https://mempool.space/docs/api/rest)
+- [Esplora api](https://github.com/Blockstream/esplora/blob/master/API.md)
