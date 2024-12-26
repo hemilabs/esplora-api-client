@@ -55,6 +55,7 @@
     "@types/node": "^22.7.3",
     "@vitest/coverage-v8": "2.1.8",
     "better-sort-package-json": "^1.1.0",
+    "commitlint-config-bloq": "1.1.0",
     "eslint": "^8.57.1",
     "eslint-config-bloq": "^4.4.1",
     "eslint-plugin-markdownlint": "^0.6.0",
@@ -76,38 +77,6 @@
   },
   "c8": {
     "all": true
-  },
-  "commitlint": {
-    "rules": {
-      "body-case": [
-        2,
-        "always",
-        [
-          "sentence-case"
-        ]
-      ],
-      "body-leading-blank": [
-        1,
-        "always"
-      ],
-      "header-case": [
-        2,
-        "always",
-        [
-          "sentence-case"
-        ]
-      ],
-      "header-full-stop": [
-        2,
-        "never",
-        "."
-      ],
-      "header-max-length": [
-        2,
-        "always",
-        50
-      ]
-    }
   },
   "eslintConfig": {
     "extends": [
