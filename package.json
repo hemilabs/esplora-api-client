@@ -38,13 +38,13 @@
     "build:esm": "tsc --noEmit false --outDir ./_esm --sourceMap",
     "build:types": "tsc --module esnext --declarationDir ./_types --emitDeclarationOnly --declaration --declarationMap",
     "clean": "rm -rf ./_esm ./_cjs ./_types",
-    "coverage": "c8 npm test",
+    "coverage": "vitest run --coverage",
     "format:check": "prettier --check .",
     "knip": "knip",
     "lint": "eslint --cache .",
     "prepare": "husky",
     "prepublishOnly": "npm run build",
-    "test": "mocha",
+    "test": "vitest run",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
@@ -53,20 +53,18 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@types/node": "^22.7.3",
+    "@vitest/coverage-v8": "2.1.8",
     "better-sort-package-json": "^1.1.0",
-    "c8": "^10.1.2",
-    "chai": "^5.1.1",
-    "chai-as-promised": "^8.0.0",
     "eslint": "^8.57.1",
     "eslint-config-bloq": "^4.1.0",
     "eslint-plugin-markdownlint": "^0.6.0",
     "husky": "^9.1.6",
     "knip": "^5.30.5",
     "lint-staged": "^15.2.10",
-    "mocha": "^10.7.3",
     "nock": "^14.0.0-beta.14",
     "prettier": "^3.3.3",
-    "typescript": "5.7.2"
+    "typescript": "5.7.2",
+    "vitest": "2.1.8"
   },
   "type": "module",
   "exports": {

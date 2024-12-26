@@ -1,13 +1,10 @@
-import * as chai from "chai";
-import chaiAsPromised from "chai-as-promised";
 import nock from "nock";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { esploraClient } from "../src/index.js";
-
-chai.use(chaiAsPromised).should();
+import { esploraClient } from "../src";
 
 describe("API fallback", function () {
-  before(function () {
+  beforeAll(function () {
     nock.disableNetConnect();
   });
 
@@ -18,9 +15,11 @@ describe("API fallback", function () {
     nock(`https://${hostnames[0]}`)
       .get(`/api/tx/${txid}/hex`)
       .reply(200, response);
+
     const client = esploraClient({ hostnames });
     const data = await client.bitcoin.transactions.getTxHex({ txid });
-    data.should.deep.equal(response);
+
+    expect(data).toEqual(response);
   });
 
   it("should make a second call if the first fails", async function () {
@@ -32,9 +31,11 @@ describe("API fallback", function () {
     nock(`https://${hostnames[1]}`)
       .get(`/api/blocks/tip/height`)
       .reply(200, response.toString());
+
     const client = esploraClient({ hostnames });
     const data = await client.bitcoin.blocks.getBlocksTipHeight();
-    data.should.equal(response);
+
+    expect(data).toEqual(response);
   });
 
   it("should fail if all calls fail", async function () {
@@ -45,13 +46,14 @@ describe("API fallback", function () {
     nock(`https://${hostnames[1]}`)
       .get(`/testnet/api/fee-estimates`)
       .reply(404, "Not Found");
+
     const client = esploraClient({ hostnames, network: "testnet" });
-    await client.bitcoin.fees
-      .getFeeEstimates()
-      .should.be.rejectedWith(/Service Unavailable.*Not Found/);
+    await expect(client.bitcoin.fees.getFeeEstimates()).rejects.toThrow(
+      /Service Unavailable.*Not Found/,
+    );
   });
 
-  after(function () {
+  afterAll(function () {
     nock.cleanAll();
     nock.enableNetConnect();
   });
