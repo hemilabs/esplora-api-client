@@ -163,7 +163,6 @@
     ]
   },
   "module": "./_esm/index.js",
-  "prettier": {},
   "types": "./_types/index.d.ts",
   "typings": "./_types/index.d.ts"
 }
