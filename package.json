@@ -9,27 +9,43 @@
     "client",
     "esplora",
     "mempool",
-    "mempool.space"
+    "mempool.space",
+    "typescript"
   ],
   "homepage": "https://github.com/hemilabs/esplora-client",
   "bugs": {
     "url": "https://github.com/hemilabs/esplora-client/issues"
   },
   "license": "MIT",
-  "author": "Gabriel Montes <gabriel@bloq.com> (https://github.com/gabmontes)",
-  "files": [
-    "src",
-    "types"
+  "author": "Gabriel Montes <gabriel@hemi.xyz> (https://github.com/gabmontes)",
+  "contributors": [
+    {
+      "email": "gonzalo@hemi.xyz.com",
+      "name": "Gonzalo D'Elia"
+    }
   ],
-  "main": "src/index.js",
+  "files": [
+    "_cjs",
+    "_esm",
+    "_types",
+    "src/**/*.ts"
+  ],
+  "main": "./_esm/index.js",
   "repository": "hemilabs/esplora-client",
   "scripts": {
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:cjs": "tsc --noEmit false --module CommonJS --outDir ./_cjs --sourceMap && echo '{\"type\":\"commonjs\"}' > ./_cjs/package.json",
+    "build:esm": "tsc --noEmit false --outDir ./_esm --sourceMap",
+    "build:types": "tsc --module esnext --declarationDir ./_types --emitDeclarationOnly --declaration --declarationMap",
+    "clean": "rm -rf ./_esm ./_cjs ./_types",
     "coverage": "c8 npm test",
     "format:check": "prettier --check .",
     "knip": "knip",
     "lint": "eslint --cache .",
     "prepare": "husky",
-    "test": "mocha"
+    "prepublishOnly": "npm run build",
+    "test": "mocha",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "fetch-plus-plus": "^1.0.0"
@@ -50,9 +66,16 @@
     "mocha": "^10.7.3",
     "nock": "^14.0.0-beta.14",
     "prettier": "^3.3.3",
-    "typescript": "^5.6.2"
+    "typescript": "5.7.2"
   },
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./_esm/index.js",
+      "require": "./_cjs/index.js",
+      "types": "./_types/index.d.ts"
+    }
+  },
   "c8": {
     "all": true
   },
@@ -154,5 +177,8 @@
       "prettier --write"
     ]
   },
-  "prettier": {}
+  "module": "./_esm/index.js",
+  "prettier": {},
+  "types": "./_types/index.d.ts",
+  "typings": "./_types/index.d.ts"
 }
