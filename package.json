@@ -56,7 +56,7 @@
     "@vitest/coverage-v8": "2.1.8",
     "better-sort-package-json": "^1.1.0",
     "eslint": "^8.57.1",
-    "eslint-config-bloq": "^4.1.0",
+    "eslint-config-bloq": "^4.4.1",
     "eslint-plugin-markdownlint": "^0.6.0",
     "husky": "^9.1.6",
     "knip": "^5.30.5",
@@ -160,19 +160,6 @@
     "ignoreDependencies": [
       "eslint-config-prettier",
       "lint-staged"
-    ]
-  },
-  "lint-staged": {
-    "!(*.{js,md}|package.json)": [
-      "prettier --ignore-unknown --write"
-    ],
-    "*.{js,md}": [
-      "eslint --cache --fix --quiet",
-      "prettier --write"
-    ],
-    "package.json": [
-      "better-sort-package-json",
-      "prettier --write"
     ]
   },
   "module": "./_esm/index.js",
