@@ -1,6 +1,6 @@
 {
   "name": "esplora-client",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Tiny client library for Esplora-based Bitcoin APIs",
   "keywords": [
     "api",
@@ -9,27 +9,43 @@
     "client",
     "esplora",
     "mempool",
-    "mempool.space"
+    "mempool.space",
+    "typescript"
   ],
   "homepage": "https://github.com/hemilabs/esplora-client",
   "bugs": {
     "url": "https://github.com/hemilabs/esplora-client/issues"
   },
   "license": "MIT",
-  "author": "Gabriel Montes <gabriel@bloq.com> (https://github.com/gabmontes)",
-  "files": [
-    "src",
-    "types"
+  "author": "Gabriel Montes <gabriel@hemi.xyz> (https://github.com/gabmontes)",
+  "contributors": [
+    {
+      "email": "gonzalo@hemi.xyz.com",
+      "name": "Gonzalo D'Elia"
+    }
   ],
-  "main": "src/index.js",
+  "files": [
+    "_cjs",
+    "_esm",
+    "_types",
+    "src/**/*.ts"
+  ],
+  "main": "./_esm/index.js",
   "repository": "hemilabs/esplora-client",
   "scripts": {
-    "coverage": "c8 npm test",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:cjs": "tsc --noEmit false --module CommonJS --outDir ./_cjs --sourceMap && echo '{\"type\":\"commonjs\"}' > ./_cjs/package.json",
+    "build:esm": "tsc --noEmit false --outDir ./_esm --sourceMap",
+    "build:types": "tsc --module esnext --declarationDir ./_types --emitDeclarationOnly --declaration --declarationMap",
+    "clean": "rm -rf ./_esm ./_cjs ./_types",
+    "coverage": "vitest run --coverage",
     "format:check": "prettier --check .",
     "knip": "knip",
     "lint": "eslint --cache .",
     "prepare": "husky",
-    "test": "mocha"
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "fetch-plus-plus": "^1.0.0"
@@ -37,122 +53,30 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@types/node": "^22.7.3",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "@vitest/coverage-v8": "2.1.8",
     "better-sort-package-json": "^1.1.0",
-    "c8": "^10.1.2",
-    "chai": "^5.1.1",
-    "chai-as-promised": "^8.0.0",
+    "commitlint-config-bloq": "1.1.0",
     "eslint": "^8.57.1",
-    "eslint-config-bloq": "^4.1.0",
-    "eslint-plugin-markdownlint": "^0.6.0",
+    "eslint-config-bloq": "^4.4.1",
     "husky": "^9.1.6",
     "knip": "^5.30.5",
     "lint-staged": "^15.2.10",
-    "mocha": "^10.7.3",
     "nock": "^14.0.0-beta.14",
     "prettier": "^3.3.3",
-    "typescript": "^5.6.2"
+    "typescript": "5.7.2",
+    "vitest": "2.1.8"
   },
   "type": "module",
-  "c8": {
-    "all": true
-  },
-  "commitlint": {
-    "rules": {
-      "body-case": [
-        2,
-        "always",
-        [
-          "sentence-case"
-        ]
-      ],
-      "body-leading-blank": [
-        1,
-        "always"
-      ],
-      "header-case": [
-        2,
-        "always",
-        [
-          "sentence-case"
-        ]
-      ],
-      "header-full-stop": [
-        2,
-        "never",
-        "."
-      ],
-      "header-max-length": [
-        2,
-        "always",
-        50
-      ]
+  "exports": {
+    ".": {
+      "import": "./_esm/index.js",
+      "require": "./_cjs/index.js",
+      "types": "./_types/index.d.ts"
     }
   },
-  "eslintConfig": {
-    "extends": [
-      "bloq",
-      "prettier"
-    ],
-    "overrides": [
-      {
-        "extends": [
-          "plugin:markdownlint/recommended"
-        ],
-        "files": [
-          "*.md"
-        ],
-        "parser": "eslint-plugin-markdownlint/parser",
-        "rules": {
-          "markdownlint/md013": "off",
-          "markdownlint/md034": "warn"
-        }
-      },
-      {
-        "extends": [
-          "bloq/mocha",
-          "prettier"
-        ],
-        "files": [
-          "*.test.js"
-        ],
-        "rules": {
-          "node/no-unpublished-require": "off"
-        }
-      }
-    ],
-    "parserOptions": {
-      "sourceType": "module"
-    },
-    "root": true,
-    "rules": {
-      "camelcase": [
-        "warn",
-        {
-          "allow": [
-            "after_txid"
-          ]
-        }
-      ]
-    }
-  },
-  "knip": {
-    "ignoreDependencies": [
-      "eslint-config-prettier",
-      "lint-staged"
-    ]
-  },
-  "lint-staged": {
-    "!(*.{js,md}|package.json)": [
-      "prettier --ignore-unknown --write"
-    ],
-    "*.{js,md}": [
-      "eslint --cache --fix --quiet",
-      "prettier --write"
-    ],
-    "package.json": [
-      "better-sort-package-json",
-      "prettier --write"
-    ]
-  },
-  "prettier": {}
+  "module": "./_esm/index.js",
+  "types": "./_types/index.d.ts",
+  "typings": "./_types/index.d.ts"
 }
